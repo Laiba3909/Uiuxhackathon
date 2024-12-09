@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import Image from "next/image";
+import Cart from '../Components/cartcomponent'
 import Link from "next/link";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 export default function Header() {
@@ -50,9 +50,9 @@ export default function Header() {
         <button>
           <i className="fa-regular fa-heart text-2xl text-gray-800 hover:text-gray-600 transition-all duration-300"></i>
         </button>
-        <button>
-          <Link href={'/cart'}><Image src="/cart.png" alt="Cart" width={24} height={24} className="hover:scale-110 transition-all duration-300" /></Link>
-        </button>
+       
+          <Cart />
+       
       </div>
 
       <div className={`md:hidden ${isMobileMenu ? 'block' : 'hidden'} relative top-2 right-32 bg-[#fbebb5] p-4`}>
@@ -86,10 +86,9 @@ export default function Header() {
             <i className="fa-regular fa-heart text-2xl text-gray-800 hover:text-gray-600 transition-all duration-300"></i>
             <span>Favorites</span>
           </button>
-          <button className="flex justify-between items-center">
-            <Link href={'/cart'}><Image src="/cart.png" alt="Cart" width={24} height={24} className="hover:scale-110 transition-all duration-300" /></Link>
-            <span>Cart</span>
-          </button>
+        
+           <Cart />
+         
         </div>
       </div>
     </div>

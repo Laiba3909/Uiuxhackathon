@@ -1,6 +1,7 @@
 import Image from "next/image";
 import back from '../../../public/back2.jpg';
 import Link from "next/link";
+import Button from '../Components/button'
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import glass from '../../../public/glass.png'
 export default function BlogAbout() {
@@ -148,6 +149,14 @@ return (
           </div>
         </div>
       </div>
+      <div className="flex justify-center items-center space-x-4 mt-8">
+        <Button name='1' style="w-10 h-10 bg-[#fbebb5] rounded"/>
+        <Button name='2' style="w-10 h-10 bg-[#fff9e5] hover:bg-[#fbebb5] rounded"/>
+        <Button name='3' style="w-10 h-10 bg-[#fff9e5] hover:bg-[#fbebb5] rounded"/>
+        <Button name='Next' style="w-20 h-10 bg-[#fff9e5] hover:bg-[#fbebb5] rounded"/>
+      </div>
+      <br />
+      <br />
     </main>
   );
 }

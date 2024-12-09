@@ -82,7 +82,7 @@ export default function ShopPage() {
       <div className='xl:grid xl:grid-cols-4 md:grid md:grid-cols-2 sm:grid sm:grid-cols-1 gap-6 mt-20'>
         {products.map((product, inde) => (
           <div key={product.id} className={`flex flex-col items-center ${inde === 1 || inde === 3 || inde === 8 || inde === 14 ? 'mt-10' : ''} ${inde === 6 || inde === 15 ? '-mt-10' : ''}`}>
-            <Link href='/productslist'><Image
+            <Link href={`/product/${product.id}`}><Image
               src={product.image}
               alt={product.name}
               width={300}

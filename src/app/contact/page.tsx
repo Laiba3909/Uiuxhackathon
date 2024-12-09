@@ -99,8 +99,32 @@ export default function MyAccount(){
   </div>
 </div>
 
+<div
+  className="w-full bg-[#faf4f4] xl:h-44 h-auto mt-16 flex flex-col lg:flex-row items-center justify-center space-y-12 lg:space-y-0 px-4 lg:px-8"
+>
+  <div className="text-center lg:text-left xl:space-x-16">
+    <h2 className="text-xl md:text-2xl xl:text-4xl font-semibold">Free Delivery</h2>
+    <p className="w-full lg:w-60 xl:w-80 mx-auto lg:mx-0 mt-4 text-gray-500 text-sm md:text-base">
+      For all orders over $50, consectetur adipiscing elit.
+    </p>
+  </div>
 
+  <div className="text-center lg:text-left xl:space-x-16">
+    <h2 className="text-xl md:text-2xl xl:text-4xl font-semibold">90 Days Return</h2>
+    <p className="w-full lg:w-60 xl:w-80 mx-auto lg:mx-0 mt-4 text-gray-500 text-sm md:text-base">
+      If goods have problems, consectetur adipiscing elit.
+    </p>
+  </div>
 
+  <div className="text-center lg:text-left xl:space-x-16">
+    <h2 className="text-xl md:text-2xl xl:text-4xl font-semibold">Secure Payments</h2>
+    <p className="w-full lg:w-60 xl:w-80 mx-auto lg:mx-0 mt-4 text-gray-500 text-sm md:text-base">
+      100% secure payment, consectetur adipiscing elit.
+    </p>
+  </div>
+</div>
+  <br />
+  <br />
       </main>
     )
 }

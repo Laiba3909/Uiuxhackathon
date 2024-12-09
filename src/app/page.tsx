@@ -1,4 +1,5 @@
 'use client'
+import Link from "next/link";
 import Image from "next/image";
 import Button from './Components/button'
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -67,7 +68,7 @@ export default function Home(){
         <h1 className="text-4xl lg:w-96 sm:text-5xl lg:text-[60px]  ">
           Rocket single <span className="lg:mt-7 lg:block"> seater </span>
         </h1>
-        <Button name="Shop now" style="underline underline-offset-8 hover:text-gray-500 mt-4" />
+        <Link href='/shop'><Button name="Shop now" style="underline underline-offset-8 hover:text-gray-500 mt-4" /></Link>
       </div>
 
       <div className="mt-10 lg:mt-0">
@@ -89,7 +90,7 @@ export default function Home(){
       />
      <div className="family2 -mt-20 ml-12 md:-mt-40 md:ml-[180px] xl:ml-[210px] xl:-mt-36 lg:-mt-24  lg:ml-[160px]">
      <h1 className="text-3xl">Side table</h1>
-     <Button name="View More" style="mt-4 underline underline-offset-8 hover:text-gray-500 "/>
+     <Link href={'/shop'}><Button name="View More" style="mt-4 underline underline-offset-8 hover:text-gray-500 "/></Link>
      </div>
     </div>
     <div>
@@ -99,7 +100,7 @@ export default function Home(){
       />
       <div className="family2  md:-mt-40 md:ml-[180px] xl:ml-[210px] xl:-mt-36 lg:-mt-24 lg:ml-[160px] -mt-20 ml-20">
      <h1 className="text-3xl">Side table</h1>
-     <Button name="View More" style="mt-4 underline underline-offset-8 hover:text-gray-500 "/>
+     <Link href={'/shop'}><Button name="View More" style="mt-4 underline underline-offset-8 hover:text-gray-500 "/></Link>
      </div>
     </div>
     
@@ -114,12 +115,12 @@ export default function Home(){
 <div className={`md:grid sm:grid sm:grid-cols-2 md:grid-cols-4 mt-20`}>
       {furnitureItems.map((item, index) => (
         <div key={index}  className={` m-3 ${index === 1 || index === 3? 'mt-24': ''}`}>
-          <Image
+          <Link href={'/shop'}><Image
             src={item.image}
             alt={item.name}
            height={300}
            width={300}
-          />
+          /></Link>
           <h3 className="mt-5 w-44">{item.name}</h3>
           <p className="mt-2 text-xl font-semibold">{item.price}</p>
         </div>
@@ -127,7 +128,7 @@ export default function Home(){
     </div>
 
     <div>
-      <h1 className="text-center text-2xl mt-16 underline underline-offset-[18px]">View More</h1>
+    <h1 className="text-center text-2xl mt-16 underline underline-offset-[18px]">View More</h1>
     </div>
     <br />
    
@@ -144,7 +145,7 @@ export default function Home(){
     <p className="text-center font-semibold">New Arrivals</p>
     <h1 className="font-semibold text-center text-4xl lg:text-4xl xl:text-5xl">Asgaard sofa</h1>
    <div className="flex items-center justify-center">
-    <Button name="Order Now" style="xl:ml-16 xl:mt-10 mt-7 lg:ml-24 border-2 border-black  w-44 h-12"/>
+    <Link href='/cart'><Button name="Order Now" style="xl:ml-16 xl:mt-10 mt-7 lg:ml-24 border-2 border-black  w-44 h-12"/></Link>
    </div>
    </div>
   </div>
@@ -167,7 +168,7 @@ export default function Home(){
     />
     <h2 className="mt-5 text-center">{item.title}</h2>
     <div className="flex justify-center ">
-    <Button name="Read More" style=" text-center mt-2 font-semibold underline underline-offset-[10px]" />
+    <Link href={'/blogabout'}><Button name="Read More" style=" text-center mt-2 font-semibold underline underline-offset-[10px]" /></Link>
      </div>
      <div className="flex justify-center mt-3">
     <p><i className="fa-regular fa-clock"></i> {item.readTime} <span><i className="fa-regular fa-calendar-days"> </i> {item.date}</span></p>
@@ -181,14 +182,14 @@ export default function Home(){
     </div>
     <div className="relative">
   <Image
-    className="mt-12 w-full"
+    className="mt-16 w-full "
     src={back}
     alt="loadingg"
   />
   <div className="absolute inset-0  flex flex-col justify-center items-center text-center ">
-    <h1 className="text-6xl text-black  font-bold">Our Instagram</h1>
+    <h1 className="md:text-6xl text-3xl text-black  font-bold">Our Instagram</h1>
     <p className="mt-3">Follow our store on Instagram</p>
-    <Button name="Follow Us" style="rounded-xl bg-gray-300 w-32 mt-4 h-8" />
+    <Link href={'/contact'}><Button name="Follow Us" style="rounded-xl bg-gray-300 w-32  md:mt-4 h-8" /></Link>
   </div>
 </div>
 
