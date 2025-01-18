@@ -133,7 +133,7 @@ export default function ProductListing() {
           <ul className="ml-6 text-gray-500 mt-2">
             <li>Sku: <span>SS001</span></li>
             <li>Category: <span>Sofas</span></li>
-            <li>Tags: <span>Sofa, Chair, Home, Shop</span></li>
+            <li>Tags: <span>Sofas, Chair, Home, Shop</span></li>
           </ul>
         </div>
       </div>
