@@ -1,32 +1,25 @@
-import Image from "next/image";
+import { client } from "../../../sanityClient";
+import Button from '../Components/button'
 import Link from "next/link";
-import Button from '../Components/button';
-import back from '../../../public/back2.jpg';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import React from "react";
+import Image from "next/image";
+import back from '../../../public/back2.jpg'
+// Define the shape of a product object
+interface Product {
+  _id: string;
+  name: string;
+  imagePath: string;
+  description: string;
+  price: number;
+  category: string;
+  stockLevel: number;
+  isFeaturedProduct: boolean;
+}
 
-export default function ShopPage() {
-  const products = [
-    { id: 1, name: "Trenton modular sofa_3", image: "/chair.png", price: 25000 },
-    { id: 2, name: "Granite dining table with dining chair", image: "/dining.png", price: 25000 },
-    { id: 3, name: "Outdoor bar table and stool", image: "/cafedining.png", price: 25000 },
-    { id: 4, name: "Plain console with teak mirror", image: "/board.png", price: 25000 },
-    { id: 5, name: "Grain coffee table", image: "/pic1.png", price: 15000 },
-    { id: 6, name: "Kent coffee table", image: "/pic2.png", price: 225000 },
-    { id: 7, name: "Round coffee table_color 2", image: "/pic3.png", price: 251000 },
-    { id: 8, name: "Reclaimed teak coffee table", image: "/pic4.png", price: 25200 },
-    { id: 9, name: "Plain console", image: "/pic5.png", price: 258200 },
-    { id: 10, name: "Reclaimed teak Sideboard", image: "/pic6.png", price: 20000 },
-    { id: 11, name: "SJP_0825", image: "/pic7.png", price: 200000 },
-    { id: 12, name: "Bella chair and table", image: "/pic8.png", price: 100000 },
-    { id: 13, name: "Granite square side table", image: "/table.png", price: 258800 },
-    { id: 14, name: "Asgard sofa", image: "/pic10.png", price: 250000 },
-    { id: 15, name: "Maya sofa three seater", image: "/pic11.png", price: 115000 },
-    { id: 16, name: "Outdoor sofa set", image: "/pic12.png", price: 244000 },
-  ];
+export default async function Home() {
+  const products: Product[] = await client.fetch(`*[_type == 'product']`);
 
   return (
-    <main>
+    <div>
       <div className="relative">
         <Image className="w-full h-60" src={back} alt="background" />
         <div className="absolute inset-0 bg-white bg-opacity-50"></div>
@@ -79,20 +72,41 @@ export default function ShopPage() {
         </div>
       </div>
 
-      <div className='xl:grid xl:grid-cols-4 md:grid md:grid-cols-2 sm:grid sm:grid-cols-1 gap-6 mt-20'>
-        {products.map((product, inde) => (
-          <div key={product.id} className={`flex flex-col items-center ${inde === 1 || inde === 3 || inde === 8 || inde === 14 ? 'mt-10' : ''} ${inde === 6 || inde === 15 ? '-mt-10' : ''}`}>
-            <Link href={`/product/${product.id}`}><Image
-              src={product.image}
-              alt={product.name}
-              width={300}
-              height={300}
-              className="object-cover"
-            /></Link>
-            <h2 className="mt-6 text-center">{product.name}</h2>
-            <h2 className="text-center text-2xl font-semibold">{product.price}</h2>
-          </div>
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 px-4 sm:px-8 md:px-12">
+      
+          {products.map((product) => (
+            <div key={product._id} className="border p-4 rounded-lg shadow-md">
+             
+              <div className="w-full h-48 mb-4">
+                
+                
+              <Link href={`/product/${product._id}`} >
+                <Image
+                  className="w-full h-full object-cover"
+                  src={product.imagePath}
+                  alt={`${product.name} image`}
+                  width={400}
+                  height={400}
+                  priority={true}
+                />
+               
+             </Link>
+
+              </div>
+              <Link href={`/product/${product._id}`} passHref>
+                <h3 className="font-semibold text-lg text-center">{product.name}</h3>
+              </Link>
+              <p className="text-gray-600 text-sm">{product.description}</p>
+              <p className="text-sm text-gray-500 mt-2">
+                {product.stockLevel > 0 ? `${product.stockLevel} in stock` : 'Out of stock'}
+              </p>
+              <p className="text-sm text-gray-500">Category: {product.category}</p>
+              <button className="bg-[#f8e29b] text-black py-2 px-4 mt-4 rounded">
+                Add to Cart
+              </button>
+            </div>
+          ))
+}
       </div>
 
       <div className="flex justify-center items-center space-x-4 mt-8">
@@ -127,6 +141,10 @@ export default function ShopPage() {
 
       <br />
       <br />
-    </main>
+
+
+
+     
+    </div>
   );
 }
