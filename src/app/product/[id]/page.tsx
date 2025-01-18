@@ -4,7 +4,6 @@ import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import back from '../../../../public/back2.jpg'
 interface Product {
   _id: string;
   name: string;

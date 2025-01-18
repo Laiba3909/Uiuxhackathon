@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { client } from '@/sanity/lib/client';
-import { NextRequest, NextResponse } from 'next/server';
+import {  NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     // Fetch data from the API
     const { data } = await axios.get('https://template-0-beta.vercel.app/api/product');
