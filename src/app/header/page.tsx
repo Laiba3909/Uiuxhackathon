@@ -21,7 +21,7 @@ export default function Header() {
         </button>
       </div>
 
-      <div className="hidden md:flex flex-grow justify-center">
+      <div className="hidden md:flex flex-grow justify-center mt-8">
         <ul className="font-semibold flex gap-12">
           <li className="hover:text-gray-600 hover:underline-offset-2 hover:underline">
             <Link href="/">Home</Link>
@@ -35,6 +35,7 @@ export default function Header() {
           <li className="hover:text-gray-600 hover:underline-offset-2 hover:underline">
             <Link href="/contact">Contact</Link>
           </li>
+         
         </ul>
       </div>
 

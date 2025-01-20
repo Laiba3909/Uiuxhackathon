@@ -1,9 +1,13 @@
+
+'use client'
+import React from 'react'; 
+import { useUser, RedirectToSignIn } from '@clerk/nextjs';
 import { client } from "../../../sanityClient";
-import Button from '../Components/button'
+import Button from '../Components/button';
 import Link from "next/link";
 import Image from "next/image";
-import back from '../../../public/back2.jpg'
-// Define the shape of a product object
+import back from '../../../public/back2.jpg';
+
 interface Product {
   _id: string;
   name: string;
@@ -15,11 +19,30 @@ interface Product {
   isFeaturedProduct: boolean;
 }
 
-export default async function Home() {
-  const products: Product[] = await client.fetch(`*[_type == 'product']`);
+export default function Home() {
+ 
+  const { isLoaded, user } = useUser();
+  const [products, setProducts] = React.useState<Product[]>([]); 
+
+
+ 
+  React.useEffect(() => {
+    if (isLoaded && user) {
+      const fetchProducts = async () => {
+        const fetchedProducts = await client.fetch(`*[_type == 'product']`);
+        setProducts(fetchedProducts);
+      };
+
+      fetchProducts();
+    }
+  }, [isLoaded, user]); 
+
+  if (!isLoaded) return <div className='flex justify-center'><div className='text-2xl  mt-5  rounded-md'><h1 className='bg-[#f8e29b] rounded-xl w-[400px] h-12'>Loading Products Data From Sanity</h1> <Image className='rounded-xl mt-32 ml-12' src={'/loading.png'} alt='loading' height={300} width={300} priority/></div></div>;
+  if (!user) return <RedirectToSignIn />;
 
   return (
     <div>
+    \
       <div className="relative">
         <Image className="w-full h-60" src={back} alt="background" />
         <div className="absolute inset-0 bg-white bg-opacity-50"></div>
@@ -31,6 +54,7 @@ export default async function Home() {
             alt="Logo"
             width={100}
             height={100}
+            objectFit='cover'
           />
         </div>
 
@@ -73,14 +97,10 @@ export default async function Home() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 px-4 sm:px-8 md:px-12">
-      
-          {products.map((product) => (
-            <div key={product._id} className="border p-4 rounded-lg shadow-md">
-             
-              <div className="w-full h-48 mb-4">
-                
-                
-              <Link href={`/product/${product._id}`} >
+        {products.map((product) => (
+          <div key={product._id} className="border p-4 rounded-lg shadow-md">
+            <div className="w-full h-48 mb-4">
+              <Link href={`/product/${product._id}`}>
                 <Image
                   className="w-full h-full object-cover"
                   src={product.imagePath}
@@ -88,25 +108,25 @@ export default async function Home() {
                   width={400}
                   height={400}
                   priority={true}
+                   objectFit="cover"
                 />
-               
-             </Link>
-
-              </div>
-              <Link href={`/product/${product._id}`} passHref>
-                <h3 className="font-semibold text-lg text-center">{product.name}</h3>
               </Link>
-              <p className="text-gray-600 text-sm">{product.description}</p>
-              <p className="text-sm text-gray-500 mt-2">
-                {product.stockLevel > 0 ? `${product.stockLevel} in stock` : 'Out of stock'}
-              </p>
-              <p className="text-sm text-gray-500">Category: {product.category}</p>
-              <button className="bg-[#f8e29b] text-black py-2 px-4 mt-4 rounded">
-                Add to Cart
-              </button>
             </div>
-          ))
-}
+            <Link href={`/product/${product._id}`} passHref>
+              <h3 className="font-semibold text-lg text-center">{product.name}</h3>
+            </Link>
+            <p className="text-gray-600 text-sm">{product.description}</p>
+            <p className="text-sm text-gray-500 mt-2">
+              {product.stockLevel > 0 ? `${product.stockLevel} in stock` : 'Out of stock'}
+            </p>
+            <p className="text-sm text-gray-500">Category: {product.category}</p>
+            <Link href={`/product/${product._id}`} passHref>
+            <button className="bg-[#f8e29b] text-black py-2 px-4 mt-4 rounded">
+            Click Here
+            </button>
+            </Link>
+          </div>
+        ))}
       </div>
 
       <div className="flex justify-center items-center space-x-4 mt-8">
@@ -141,10 +161,6 @@ export default async function Home() {
 
       <br />
       <br />
-
-
-
-     
     </div>
   );
 }
