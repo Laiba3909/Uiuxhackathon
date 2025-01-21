@@ -1,9 +1,5 @@
 const nextConfig = {
-  swcMinify: true,
-  distDir: 'build',
-  experimental: {
-    appDir: true,
-  },
+  distDir: 'build', 
   i18n: {
     locales: ['en', 'fr', 'de'],
     defaultLocale: 'en',
@@ -16,4 +12,5 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
 
