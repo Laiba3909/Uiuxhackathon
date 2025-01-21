@@ -232,7 +232,7 @@ const Cart: React.FC = () => {
                   onClick={clearCart}
                   className="w-full mt-4 py-3 bg-[#f8e29b] text-black rounded-lg ver:bg-white hover:text-black transition duration-300"
                 >
-                  Clear Cart
+                  Clear your Cart
                 </button>
               </>
             )}
