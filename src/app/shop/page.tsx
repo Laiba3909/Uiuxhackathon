@@ -1,12 +1,10 @@
-
 'use client'
-import React from 'react'; 
-import { useUser, RedirectToSignIn } from '@clerk/nextjs';
+import React, { useState } from 'react'; 
 import { client } from "../../../sanityClient";
-import Button from '../Components/button';
 import Link from "next/link";
 import Image from "next/image";
 import back from '../../../public/back2.jpg';
+import Button from '../Components/button';
 
 interface Product {
   _id: string;
@@ -16,35 +14,27 @@ interface Product {
   price: number;
   category: string;
   stockLevel: number;
-  isFeaturedProduct: boolean;
 }
 
 export default function Home() {
- 
-  const { isLoaded, user } = useUser();
   const [products, setProducts] = React.useState<Product[]>([]); 
-
-
- 
+ const [wishlist, setWishlist] = useState(false)
+ const click = ()=>{
+  setWishlist(!wishlist)
+ }
   React.useEffect(() => {
-    if (isLoaded && user) {
-      const fetchProducts = async () => {
-        const fetchedProducts = await client.fetch(`*[_type == 'product']`);
-        setProducts(fetchedProducts);
-      };
+    const fetchProducts = async () => {
+      const fetchedProducts = await client.fetch(`*[_type == 'product']`);
+      setProducts(fetchedProducts);
+    };
 
-      fetchProducts();
-    }
-  }, [isLoaded, user]); 
-
-  if (!isLoaded) return <div className='flex justify-center'><div className='text-2xl  mt-5  rounded-md'><h1 className='bg-[#f8e29b] rounded-xl w-[400px] h-12'>Loading Products Data From Sanity</h1> <Image className='rounded-xl mt-32 ml-12' src={'/loading.png'} alt='loading' height={300} width={300} priority/></div></div>;
-  if (!user) return <RedirectToSignIn />;
+    fetchProducts();
+  }, []); 
 
   return (
     <div>
-    \
       <div className="relative">
-        <Image className="w-full h-60" src={back} alt="background" />
+        <Image className="w-full h-60" src={back} alt="background"  objectFit='cover'/>
         <div className="absolute inset-0 bg-white bg-opacity-50"></div>
 
         <div className="absolute inset-0 flex justify-center items-center mt-6">
@@ -54,11 +44,12 @@ export default function Home() {
             alt="Logo"
             width={100}
             height={100}
+            priority
             objectFit='cover'
           />
         </div>
 
-        <div className="absolute inset-x-6 -mt-32  flex justify-center items-center">
+        <div className="absolute inset-x-6 -mt-32 flex justify-center items-center">
           <h2 className="lg:text-5xl sm:text-3xl">Shop</h2>
         </div>
 
@@ -104,11 +95,10 @@ export default function Home() {
                 <Image
                   className="w-full h-full object-cover"
                   src={product.imagePath}
-                  alt={`${product.name} image`}
+                  alt={product.name}
                   width={400}
                   height={400}
-                  priority={true}
-                   objectFit="cover"
+                  objectFit='cover'
                 />
               </Link>
             </div>
@@ -120,11 +110,12 @@ export default function Home() {
               {product.stockLevel > 0 ? `${product.stockLevel} in stock` : 'Out of stock'}
             </p>
             <p className="text-sm text-gray-500">Category: {product.category}</p>
+            <div className='justify-between flex'>
             <Link href={`/product/${product._id}`} passHref>
-            <button className="bg-[#f8e29b] text-black py-2 px-4 mt-4 rounded">
-            Click Here
-            </button>
+              <button className="bg-[#f8e29b] text-black py-2 px-4 mt-4 rounded">Click Here</button>
             </Link>
+            <button onClick={click}> <i className={`fa-solid fa-heart mt-8 w-5 h-8 ${wishlist ? 'text-red-500' : ''}`}></i></button>
+            </div>
           </div>
         ))}
       </div>
@@ -158,9 +149,7 @@ export default function Home() {
           </p>
         </div>
       </div>
-
-      <br />
-      <br />
     </div>
   );
 }
+

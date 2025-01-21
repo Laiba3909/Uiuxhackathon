@@ -1,19 +1,18 @@
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from './header/page'
+import Header from './header/page';
 import Footer from "./footer/page";
-import { CartProvider } from './Components/cartcontext';
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+import { CartProvider } from '../app/Components/cartcontext';
+
+const geistSans = Geist({
   variable: "--font-geist-sans",
-  weight: "100 900",
+  subsets: ["latin"],
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+
+const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
-  weight: "100 900",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -27,38 +26,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
     <html lang="en">
-      <body
-  className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        
-        <SignedOut>
-  <div className="sm:ml-[540px] ml-60 relative md:ml-20 ">
-    <div className="absolute mt-5  md:mt-[53px] w-12 font-semibold">
-      <SignInButton />
-    </div>
-  </div>
-</SignedOut>
-
-
-
-          <SignedIn  >
-          <div className="sm:ml-[540px] ml-44 relative md:ml-20 ">
-          <div className="absolute w-2 mt-5   md:mt-[53px] font-semibold">
-            <UserButton    />
-            </div>
-            </div>
-          </SignedIn>
-          <CartProvider>
-        <Header />
-        {children}
-       
-        <Footer  />
-        
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <CartProvider>  {/* Wrap everything in CartProvider */}
+          <Header />
+          {children}
+          <Footer />
         </CartProvider>
       </body>
     </html>
-    </ClerkProvider>
   );
 }
