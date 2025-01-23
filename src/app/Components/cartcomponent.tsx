@@ -73,9 +73,7 @@ export default function Cart() {
             <Link href="/cart" className="flex-1 border border-gray-500 py-2 rounded-xl text-gray-800 hover:bg-gray-100">
               <button className="ml-3 w-full">View Cart</button>
             </Link>
-            <Link href="/billing" className="flex-1 hover:bg-gray-100 border-2 border-gray-500 py-2 rounded-xl mt-2 sm:mt-0">
-              <button className="ml-3 w-full">Checkout</button>
-            </Link>
+          
           </div>
         </div>
       )}
