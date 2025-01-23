@@ -3,7 +3,6 @@ import React from "react";
 import { useCart } from "../Components/cartcontext";
 import Image from "next/image";
 import { loadStripe } from "@stripe/stripe-js";
-import product from "@/sanity/schemaTypes/product";
 
 const Cart: React.FC = () => {
   const { cart, updateQuantity, removeFromCart, clearCart } = useCart();

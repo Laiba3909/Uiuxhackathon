@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react';
-
+import Image from 'next/image';
+import Link from 'next/link';
 export default function MyAccount() {
 
   const [name, setName] = useState<string>('');
@@ -39,11 +40,11 @@ export default function MyAccount() {
   return (
     <main>
       <div className="relative">
-        <img className="w-full h-60 object-cover" src="/back2.jpg" alt="background" />
+        <Image className="w-full h-60 object-cover" src="/back2.jpg" alt="background"  />
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
         <div className="absolute inset-0 flex justify-center items-center mt-6">
-          <img className="lg:w-[80px] w-[45px] h-[45px] lg:h-[80px]" src="/logo.png" alt="Logo" />
+          <Image className="lg:w-[80px] w-[45px] h-[45px] lg:h-[80px] object-cover" src="/logo.png" alt="Logo" />
         </div>
 
         <div className="absolute inset-x-6 -mt-32 flex justify-center items-center">
@@ -51,9 +52,9 @@ export default function MyAccount() {
         </div>
 
         <div className="absolute inset-x-6 -mt-16 flex justify-center items-center space-x-2 text-white">
-          <h2><a href="/">Home</a></h2>
+          <h2><Link href="/">Home</Link></h2>
           <p className="mt-1"><i className="fa-solid fa-greater-than"></i></p>
-          <h2><a href="/contact">Contact</a></h2>
+          <h2><Link href="/contact">Contact</Link></h2>
         </div>
       </div>
 

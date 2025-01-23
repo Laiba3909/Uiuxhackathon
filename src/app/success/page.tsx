@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState,Suspense } from 'react';
 import { useSearchParams } from 'next/navigation'; 
 
 
@@ -43,4 +43,10 @@ const SuccessPage = () => {
   );
 };
 
-export default SuccessPage;
+export default function WrappedSuccessPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuccessPage />
+    </Suspense>
+  );
+}

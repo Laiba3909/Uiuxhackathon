@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-
+interface CartProduct {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+}
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2024-12-18.acacia', 
 });
@@ -26,12 +32,12 @@ export async function POST(req: NextRequest) {
     // Creating Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      line_items: cart.map((item: any) => ({
+      line_items: cart.map((item: CartProduct) => ({
         price_data: {
           currency: 'usd',  //  currency set to usd
           product_data: {
             name: item.name,
-            images: [item.image],
+            images: [item.imageUrl],
           },
           unit_amount: item.price * 100, // Amount in come in scents
         },
@@ -44,14 +50,14 @@ export async function POST(req: NextRequest) {
 
     // Return session ID to the client
     return NextResponse.json({ id: session.id });
-  } catch (error: any) {
-    // console.log the full error 
-    console.error('Error creating checkout session:', error);
+  } catch (error: unknown) {
+    // Error handling
+    if (error instanceof Error) {
+      console.error('Error creating checkout session:', error.message);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
-   
-    return NextResponse.json({
-      error: error.message || 'Internal Server Error',
-    }, { status: 500 });
+    console.error('Unknown error:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
-
