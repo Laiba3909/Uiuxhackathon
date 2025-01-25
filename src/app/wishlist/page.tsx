@@ -95,7 +95,7 @@ export default function Wishlist() {
                 <p className="text-sm text-gray-600 mt-2">Category: {product.category}</p>
                 <div className="flex justify-center mt-4">
                   <Link href={`/product/${product._id}`} passHref>
-                    <button className="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700">
+                    <button className="bg-black text-white py-2 px-6 rounded-lg hover:bg-[#fbebb5] hover:text-black">
                       View Product
                     </button>
                   </Link>
@@ -103,7 +103,7 @@ export default function Wishlist() {
                 <div className="flex justify-center mt-4">
                   <button
                     onClick={() => removeFromWishlist(product._id)}
-                    className="bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600"
+                    className="bg-[#fbebb5] text-black py-2 px-6 rounded-lg hover:bg-black hover:text-white"
                   >
                     Remove from Wishlist
                   </button>

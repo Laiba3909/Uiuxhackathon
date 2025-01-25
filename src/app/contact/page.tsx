@@ -40,14 +40,14 @@ export default function MyAccount() {
   return (
     <main>
       <div className="relative">
-        <Image className="w-full h-60 object-cover" src="/back2.jpg" alt="background"  />
+        <Image className="w-full h-60 object-cover" src="/back2.jpg" alt="background" width={300} height={300}  />
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
         <div className="absolute inset-0 flex justify-center items-center mt-6">
-          <Image className="lg:w-[80px] w-[45px] h-[45px] lg:h-[80px] object-cover" src="/logo.png" alt="Logo" />
+          <Image className="lg:w-[80px] w-[45px] h-[45px] lg:h-[80px] object-cover" src="/logo.png" alt="Logo" width={300} height={300} />
         </div>
 
-        <div className="absolute inset-x-6 -mt-32 flex justify-center items-center">
+        <div className="absolute inset-x-6 -mt-52 flex justify-center items-center">
           <h2 className="lg:text-5xl sm:text-3xl text-white">Contact</h2>
         </div>
 
@@ -80,9 +80,9 @@ export default function MyAccount() {
           </div>
 
           {/* Form Section */}
-          <div className="md:w-1/2 mt-10 md:mt-0">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
+          <div className="md:w-1/2 mt-10 md:mt-0 ">
+            <form onSubmit={handleSubmit} className="space-y-4 ">
+              <div >
                 <h2 className="text-xl">Your Name</h2>
                 <input
                   className="w-full h-12 rounded-lg border-2 px-3 py-2 mt-2"

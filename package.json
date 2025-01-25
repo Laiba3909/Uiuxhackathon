@@ -1,13 +1,13 @@
 {
   "name": "uiuxfinalhackathon",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev ",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "import-data": "node scripts/importSanityData.mjs"
+    "lint": "next lint"
   },
   "dependencies": {
     "@clerk/clerk-sdk-node": "^5.1.6",
@@ -19,11 +19,13 @@
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.70.0",
     "@stripe/stripe-js": "^5.5.0",
+    "@testing-library/user-event": "^14.6.1",
     "animate.css": "^4.1.1",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
     "next": "^15.1.5",
+    "next-router-mock": "^0.9.13",
     "next-sanity": "^9.8.38",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -33,16 +35,35 @@
     "styled-components": "^6.1.14"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
     "@types/axios": "^0.14.4",
-    "@types/node": "^20.17.14",
+    "@types/chai": "^5.0.1",
+    "@types/jest": "^29.5.14",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.17.16",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19",
+    "@types/sinon": "^17.0.3",
+    "@types/sinon-chai": "^4.0.0",
     "@types/stripe": "^8.0.417",
     "@types/tailwindcss": "^3.1.0",
+    "babel-jest": "^29.7.0",
+    "chai": "^5.1.2",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
+    "identity-obj-proxy": "^3.0.0",
+    "jsdom": "^26.0.0",
+    "mocha": "^11.1.0",
     "postcss": "^8.5.1",
+    "sinon": "^19.0.2",
+    "sinon-chai": "^4.0.0",
     "tailwindcss": "^3.4.17",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

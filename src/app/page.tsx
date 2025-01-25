@@ -6,9 +6,9 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import sofa from "../../public/sofa.png";
 import sofa2 from "../../public/sofa2.png";
 import table from "../../public/table.png";
-import luxurysofa from "../../public/luxurysofa.png";
 import { useState, useEffect } from "react";
-import { client } from "@/sanity/lib/client";
+import { client } from "../sanity/lib/client";
+
 
 interface Product {
   _id: string;
@@ -23,13 +23,25 @@ interface Product {
 
 export default function Home() {
   const [displayProducts, setDisplayProducts] = useState<Product[]>([]);
+  const [singleProducts, setSingleProducts] = useState<Product | null>(null);
   const [load, setload] = useState(true);
+ 
   useEffect(() => {
     const fetchFurtherProducts = async () => {
       try {
         const productsData: Product[] = await client.fetch(
           `*[_type == 'product'] | order(_createdAt desc)[0..3]`
         );
+
+        const singleProductData: Product[] = await client.fetch(
+          `*[_type == 'product'] | order(_createdAt desc)[14..14]`
+        );
+        
+
+        if (singleProductData.length > 0) {
+          setSingleProducts(singleProductData[0]);  
+        }
+
         setDisplayProducts(productsData);
         setload(true);
       } catch (error) {
@@ -41,6 +53,9 @@ export default function Home() {
 
     fetchFurtherProducts();
   }, []);
+
+  
+  
 
   const articles = [
     {
@@ -203,26 +218,35 @@ export default function Home() {
       <br />
 
       <div className="bg-[#fff9e5] mt-6 w-full h-[580px] lg:h-[540px] lg:flex lg:justify-between block">
-        <div className="md:flex md:items-center md:justify-center">
+        
+      {singleProducts ? (
+      <div  className="md:flex md:items-center md:justify-center">
+        <Link href={`product/${singleProducts._id}`}>
           <Image
-            className="lg:w-[700px] w-[500px] lg:ml-7"
-            src={luxurysofa}
+            className="lg:w-[700px] w-[500px] lg:ml-7 rounded-md"
+            src={singleProducts?.imagePath}
             alt="Luxury Sofa"
             width={700}
+            height={400}
             style={{height:'auto'}}
             loading="lazy"
           />
+           </Link>  
         </div>
+             ) : (
+              <p>Loading...</p>  
+            )}
+
 
         <div className="lg:mr-20 ml-5 lg:mt-52">
           <p className="text-center font-semibold">New Arrivals</p>
           <h1 className="font-semibold text-center text-4xl lg:text-4xl xl:text-5xl">
-            Asgaard sofa
+          {singleProducts?.name}
           </h1>
           <div className="flex items-center justify-center">
-            <Link href="/cart">
+            <Link href={`product/${singleProducts?._id}`}>
               <Button
-                name="Order Now"
+                name='Order Now'
                 style="xl:ml-16 xl:mt-10 mt-7 lg:ml-24 border-2 border-black w-44 h-12"
               />
             </Link>

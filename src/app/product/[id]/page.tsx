@@ -1,4 +1,3 @@
-
 'use client';
 import Link from "next/link";
 import Image from "next/image";
@@ -53,8 +52,10 @@ export default function ProductListing() {
   useEffect(() => {
     const fetchFurtherProducts = async () => {
       try {
+        const productNumber = 21
+        const randomProducts = Math.floor(Math.random()*(productNumber - 3))
         const productsData: Product[] = await client.fetch(
-          `*[_type == 'product'] | order(_createdAt desc)[0..3]`
+          `*[_type == 'product'] | order(_createdAt desc)[${randomProducts}..${randomProducts + 3}]`
         );
         setFurtherProducts(productsData);
       } catch (error) {
@@ -99,25 +100,36 @@ export default function ProductListing() {
         </h2>
       </div>
 
+{/* Here i am reusing my further product state for declaring  different products for the listing product side 😊 */}
       <div className="flex flex-col lg:flex-row justify-between">
-        <div className="flex justify-center md:-mt-6 ml-2 gap-3 lg:flex-col space-x-0 lg:space-x-2">
-          {singleProduct.imagePath && [...Array(4)].map((_, index) => (
-            <div key={index} className="bg-[#fbebb5] w-[122px] ml-2 mb-4 lg:mb-0">
-              <Image
-                src={singleProduct.imagePath}
-                alt={`Product image ${index + 1}`}
-                width={200}
-                height={200}
-                className="rounded-md"
-                priority
-                objectFit="cover"
-              />
-            </div>
-          ))}
-        </div>
+         <div className="flex justify-center xl:-mt-20 md:-mt-6 ml-2 gap-3 lg:flex-col space-x-0 lg:space-x-2">
+
+      {furtherProducts.length > 0 ? (
+        furtherProducts.slice(0, 4).map((product, index) => (
+          <div key={product._id} className="bg-[#fbebb5] w-[122px] ml-2 mb-4 lg:mb-0">
+            <Link href={`/product/${product._id}`}>
+            <Image
+              src={product.imagePath}
+              alt={`Product image ${index + 1}`}
+              width={200}
+              height={200}
+              className="rounded-md h-32"
+              priority
+              objectFit="cover"
+            />
+            </Link>
+          </div>
+        ))
+      ) : (
+        <p className="text-xl text-center mt-7">Products Loading...</p> 
+      )}
+    </div>
+
+
+
 
         <div className="mt-2">
-          <div className="bg-[#fbebb5] rounded-lg w-full lg:w-[500px] lg:mr-[20px] mt-10 lg:mt-32 lg:ml-20 flex justify-center h-auto items-center">
+          <div className="bg-[#fbebb5] rounded-lg w-full lg:w-[500px] lg:mr-[20px] mt-10 lg:mt-32 lg:ml-20 flex justify-center h-auto items-center xl:mt-24">
             <Image
               src={singleProduct.imagePath}
               alt="Main product image"
@@ -125,6 +137,7 @@ export default function ProductListing() {
               height={500}
               priority
               objectFit="contain"
+              className="h-[500px]"
             />
           </div>
         </div>
@@ -161,8 +174,8 @@ export default function ProductListing() {
             <button onClick={incrementQuantity} className="w-10 h-10 rounded bg-[#fbebb5]">+</button>
           </div>
 
-          <div className="ml-5 mt-5 space-x-4">
-            <button onClick={handleAddToCart} className="w-28 h-12 rounded bg-[#fbebb5] text-black">
+         <div className="ml-5 mt-5 space-x-4">
+           <button onClick={handleAddToCart} className="w-28 h-12 rounded bg-[#fbebb5] text-black">
               Add to cart
             </button>
           </div>
@@ -197,15 +210,15 @@ export default function ProductListing() {
       <br />
       <div className="flex lg:justify-center lg:items-center overflow-x-auto space-x-6">
         {furtherProducts.map((product) => (
-          <div key={product._id} className="flex-none w-[300px]">
-            <Link href={`/shop/${product._id}`}>
+          <div key={product._id} className="flex-none w-[300px] border p-4 rounded-lg shadow-md">
+            <Link href={`/product/${product._id}`}>
               <div className="hover:bg-gray-100">
                 <Image
                   src={product.imagePath}
                   alt="Product image"
                   width={300}
                   height={300}
-                  className="rounded-md"
+                  className="rounded-md w-50 h-44"
                 />
                 <div className="px-3 mt-3 text-lg font-semibold">{product.name}</div>
                 <p className="text-gray-400 px-3">Rs.{product.price}</p>
@@ -214,6 +227,9 @@ export default function ProductListing() {
           </div>
         ))}
       </div>
+      <div><Link href={'/shop'}><h1 className="text-center text-xl mt-16">View More</h1></Link></div>
+      <br />
+      <br />
     </main>
   );
 }

@@ -20,6 +20,7 @@ interface Product {
 export default function Shop() {
   const [products, setProducts] = useState<Product[]>([]);
   const [addwishlist, setWishlist] = useState<string[]>([]);
+  const [Filtercount, setFilterCount] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [load, setload] = useState(true);
   const categories = ["Sofa", "Chair", "Table", "Bed"];
@@ -30,18 +31,22 @@ export default function Shop() {
     try {
       const fetchedProducts = await client.fetch(query);
       setProducts(fetchedProducts);
+      setFilterCount(fetchedProducts.length)
       setload(true);
     } catch (error) {
       console.error("error while fetching products from sanity ", error);
+      setFilterCount(0)
     } finally {
       setload(false);
     }
   };
 
+  
   //  selection for different  filter products
   const categorySelection = (category: string) => {
     if (selectedCategory === category) {
       setSelectedCategory(null);
+   
     } else {
       setSelectedCategory(category);
     }
@@ -131,7 +136,7 @@ export default function Shop() {
         <div className="mr-4 sm:mr-8 md:mr-12 flex justify-center items-center space-x-4 sm:space-x-6">
           <h2 className="text-sm sm:text-base">Show</h2>
           <Button
-            name="16"
+            name={`${Filtercount}`}
             style="w-12 h-12 bg-white text-center text-gray-500"
           />
         </div>

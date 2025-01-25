@@ -1,19 +1,10 @@
 'use client';
 
-import { useEffect, useState,Suspense } from 'react';
-import { useSearchParams } from 'next/navigation'; 
-
+import { Suspense } from 'react';
+import Image from 'next/image';
 
 const SuccessPage = () => {
-  const searchParams = useSearchParams(); 
-  const [sessionId, setSessionId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const session_id = searchParams.get('session_id');
-    if (session_id) {
-      setSessionId(session_id);
-    }
-  }, [searchParams]);
+  
 
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center py-12">
@@ -21,14 +12,20 @@ const SuccessPage = () => {
         <h1 className="text-3xl font-semibold text-green-600 mb-6">Payment Successful!</h1>
         <p className="text-lg font-medium text-gray-700 mb-4">Thank you for your purchase.</p>
         
-        {sessionId ? (
-          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <p className="text-md font-medium text-gray-600">Your session ID:</p>
-            <strong className="text-xl text-green-600">{sessionId}</strong>
+           <div className="flex flex-col items-center justify-center py-16">
+                  <div className="bg-gray-100 p-8  shadow-xl mb-6">
+                    <Image
+                      src="/pay.jpg"
+                      alt="Empty Cart"
+                      className="w-60 h-44 "
+                      width={300}
+                      height={300}
+                      priority
+                    />
+                  </div>
           </div>
-        ) : (
-          <p className="text-md text-gray-500 mt-6">Your session ID is not available.</p>
-        )}
+       
+        
       
         <div className="mt-8">
           <button
