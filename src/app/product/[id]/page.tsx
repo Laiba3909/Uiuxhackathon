@@ -175,7 +175,7 @@ export default function ProductListing() {
           </div>
 
          <div className="ml-5 mt-5 space-x-4">
-           <button onClick={handleAddToCart} className="w-28 h-12 rounded bg-[#fbebb5] text-black">
+           <button  onClick={handleAddToCart} className="w-28 h-12 rounded bg-[#fbebb5] text-black">
               Add to cart
             </button>
           </div>
